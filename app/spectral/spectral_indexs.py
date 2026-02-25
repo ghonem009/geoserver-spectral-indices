@@ -28,6 +28,41 @@ class NDVICreator:
         self.output_file = output_file
         self.nodata = nodata
 
+    def get_sld(self):
+        return """<?xml version="1.0" encoding="UTF-8"?>
+<StyledLayerDescriptor version="1.0.0"
+  xmlns="http://www.opengis.net/sld"
+  xmlns:ogc="http://www.opengis.net/ogc"
+  xmlns:xlink="http://www.w3.org/1999/xlink"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.opengis.net/sld http://schemas.opengis.net/sld/1.0.0/StyledLayerDescriptor.xsd">
+  <NamedLayer>
+    <Name>NDVI</Name>
+    <UserStyle>
+      <Title>NDVI Style</Title>
+      <FeatureTypeStyle>
+        <Rule>
+          <RasterSymbolizer>
+            <ChannelSelection>
+              <GrayChannel><SourceChannelName>1</SourceChannelName></GrayChannel>
+            </ChannelSelection>
+            <ColorMap type="ramp">
+              <ColorMapEntry color="#d73027" quantity="-1.0"  label="-1.0" opacity="1"/>
+              <ColorMapEntry color="#f46d43" quantity="-0.5"  label="-0.5" opacity="1"/>
+              <ColorMapEntry color="#fdae61" quantity="-0.2"  label="-0.2" opacity="1"/>
+              <ColorMapEntry color="#fee08b" quantity="0.0"   label="0.0"  opacity="1"/>
+              <ColorMapEntry color="#d9ef8b" quantity="0.2"   label="0.2"  opacity="1"/>
+              <ColorMapEntry color="#a6d96a" quantity="0.4"   label="0.4"  opacity="1"/>
+              <ColorMapEntry color="#66bd63" quantity="0.6"   label="0.6"  opacity="1"/>
+              <ColorMapEntry color="#1a9850" quantity="1.0"   label="1.0"  opacity="1"/>
+            </ColorMap>
+          </RasterSymbolizer>
+        </Rule>
+      </FeatureTypeStyle>
+    </UserStyle>
+  </NamedLayer>
+</StyledLayerDescriptor>"""
+
     def create(self):
         if not os.path.exists(self.red_file) or not os.path.exists(self.nir_file):
             return {"status": "warning", "message": "missing input band"}
@@ -49,7 +84,6 @@ class NDVICreator:
 
         except Exception as e:
             return {"status": "error", "message": str(e)}
-        
 
     def open_raster(self, path):
         ds = gdal.Open(path, gdal.GA_ReadOnly)
@@ -93,6 +127,40 @@ class NDVICreator:
 
 
 class NDWICreator(NDVICreator):
+
+    def get_sld(self):
+        return """<?xml version="1.0" encoding="UTF-8"?>
+<StyledLayerDescriptor version="1.0.0"
+  xmlns="http://www.opengis.net/sld"
+  xmlns:ogc="http://www.opengis.net/ogc"
+  xmlns:xlink="http://www.w3.org/1999/xlink"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.opengis.net/sld http://schemas.opengis.net/sld/1.0.0/StyledLayerDescriptor.xsd">
+  <NamedLayer>
+    <Name>NDWI</Name>
+    <UserStyle>
+      <Title>NDWI Style</Title>
+      <FeatureTypeStyle>
+        <Rule>
+          <RasterSymbolizer>
+            <ChannelSelection>
+              <GrayChannel><SourceChannelName>1</SourceChannelName></GrayChannel>
+            </ChannelSelection>
+            <ColorMap type="ramp">
+              <ColorMapEntry color="#8c510a" quantity="-1.0"  label="-1.0 (dry)"   opacity="1"/>
+              <ColorMapEntry color="#d8b365" quantity="-0.3"  label="-0.3"         opacity="1"/>
+              <ColorMapEntry color="#f6e8c3" quantity="0.0"   label="0.0"          opacity="1"/>
+              <ColorMapEntry color="#c7eae5" quantity="0.1"   label="0.1"          opacity="1"/>
+              <ColorMapEntry color="#5ab4ac" quantity="0.3"   label="0.3"          opacity="1"/>
+              <ColorMapEntry color="#01665e" quantity="1.0"   label="1.0 (water)"  opacity="1"/>
+            </ColorMap>
+          </RasterSymbolizer>
+        </Rule>
+      </FeatureTypeStyle>
+    </UserStyle>
+  </NamedLayer>
+</StyledLayerDescriptor>"""
+
     def calculate_ndwi(self, green, nir):
         denom = (green + nir)
         denom[denom == 0] = np.nan
@@ -120,6 +188,39 @@ class NDWICreator(NDVICreator):
 
 
 class NDBICreator(NDVICreator):
+
+    def get_sld(self):
+        return """<?xml version="1.0" encoding="UTF-8"?>
+<StyledLayerDescriptor version="1.0.0"
+  xmlns="http://www.opengis.net/sld"
+  xmlns:ogc="http://www.opengis.net/ogc"
+  xmlns:xlink="http://www.w3.org/1999/xlink"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.opengis.net/sld http://schemas.opengis.net/sld/1.0.0/StyledLayerDescriptor.xsd">
+  <NamedLayer>
+    <Name>NDBI</Name>
+    <UserStyle>
+      <Title>NDBI Style</Title>
+      <FeatureTypeStyle>
+        <Rule>
+          <RasterSymbolizer>
+            <ChannelSelection>
+              <GrayChannel><SourceChannelName>1</SourceChannelName></GrayChannel>
+            </ChannelSelection>
+            <ColorMap type="ramp">
+              <ColorMapEntry color="#1a9641" quantity="-1.0"  label="-1.0 (veg/water)" opacity="1"/>
+              <ColorMapEntry color="#a6d96a" quantity="-0.3"  label="-0.3"             opacity="1"/>
+              <ColorMapEntry color="#ffffbf" quantity="0.0"   label="0.0"              opacity="1"/>
+              <ColorMapEntry color="#fdae61" quantity="0.3"   label="0.3"              opacity="1"/>
+              <ColorMapEntry color="#d7191c" quantity="1.0"   label="1.0 (built-up)"  opacity="1"/>
+            </ColorMap>
+          </RasterSymbolizer>
+        </Rule>
+      </FeatureTypeStyle>
+    </UserStyle>
+  </NamedLayer>
+</StyledLayerDescriptor>"""
+
     def calculate_ndbi(self, swir, nir):
         denom = (swir + nir)
         denom[denom == 0] = np.nan
@@ -147,6 +248,40 @@ class NDBICreator(NDVICreator):
 
 
 class MNDWICreator(NDVICreator):
+
+    def get_sld(self):
+        return """<?xml version="1.0" encoding="UTF-8"?>
+<StyledLayerDescriptor version="1.0.0"
+  xmlns="http://www.opengis.net/sld"
+  xmlns:ogc="http://www.opengis.net/ogc"
+  xmlns:xlink="http://www.w3.org/1999/xlink"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.opengis.net/sld http://schemas.opengis.net/sld/1.0.0/StyledLayerDescriptor.xsd">
+  <NamedLayer>
+    <Name>MNDWI</Name>
+    <UserStyle>
+      <Title>MNDWI Style</Title>
+      <FeatureTypeStyle>
+        <Rule>
+          <RasterSymbolizer>
+            <ChannelSelection>
+              <GrayChannel><SourceChannelName>1</SourceChannelName></GrayChannel>
+            </ChannelSelection>
+            <ColorMap type="ramp">
+              <ColorMapEntry color="#7f3b08" quantity="-1.0"  label="-1.0 (land/bare)"  opacity="1"/>
+              <ColorMapEntry color="#e08214" quantity="-0.3"  label="-0.3"              opacity="1"/>
+              <ColorMapEntry color="#fdb863" quantity="0.0"   label="0.0"               opacity="1"/>
+              <ColorMapEntry color="#b2e2e2" quantity="0.1"   label="0.1"               opacity="1"/>
+              <ColorMapEntry color="#238b45" quantity="0.3"   label="0.3"               opacity="1"/>
+              <ColorMapEntry color="#003c30" quantity="1.0"   label="1.0 (open water)"  opacity="1"/>
+            </ColorMap>
+          </RasterSymbolizer>
+        </Rule>
+      </FeatureTypeStyle>
+    </UserStyle>
+  </NamedLayer>
+</StyledLayerDescriptor>"""
+
     def calculate_mndwi(self, green, swir):
         denom = (green + swir)
         denom[denom == 0] = np.nan
