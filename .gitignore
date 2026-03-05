@@ -9,6 +9,7 @@ __pycache__/
 .idea/
 
 output/
+*.TIF
 *.aux.xml
 *.dbf
 *.prj
@@ -16,8 +17,6 @@ output/
 *.qix
 *.fix
 *.dat
-
-*.log
 
 .DS_Store
 Thumbs.db

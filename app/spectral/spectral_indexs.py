@@ -30,38 +30,37 @@ class NDVICreator:
 
     def get_sld(self):
         return """<?xml version="1.0" encoding="UTF-8"?>
-<StyledLayerDescriptor version="1.0.0"
-  xmlns="http://www.opengis.net/sld"
-  xmlns:ogc="http://www.opengis.net/ogc"
-  xmlns:xlink="http://www.w3.org/1999/xlink"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://www.opengis.net/sld http://schemas.opengis.net/sld/1.0.0/StyledLayerDescriptor.xsd">
-  <NamedLayer>
-    <Name>NDVI</Name>
-    <UserStyle>
-      <Title>NDVI Style</Title>
-      <FeatureTypeStyle>
-        <Rule>
-          <RasterSymbolizer>
-            <ChannelSelection>
-              <GrayChannel><SourceChannelName>1</SourceChannelName></GrayChannel>
-            </ChannelSelection>
-            <ColorMap type="ramp">
-              <ColorMapEntry color="#d73027" quantity="-1.0"  label="-1.0" opacity="1"/>
-              <ColorMapEntry color="#f46d43" quantity="-0.5"  label="-0.5" opacity="1"/>
-              <ColorMapEntry color="#fdae61" quantity="-0.2"  label="-0.2" opacity="1"/>
-              <ColorMapEntry color="#fee08b" quantity="0.0"   label="0.0"  opacity="1"/>
-              <ColorMapEntry color="#d9ef8b" quantity="0.2"   label="0.2"  opacity="1"/>
-              <ColorMapEntry color="#a6d96a" quantity="0.4"   label="0.4"  opacity="1"/>
-              <ColorMapEntry color="#66bd63" quantity="0.6"   label="0.6"  opacity="1"/>
-              <ColorMapEntry color="#1a9850" quantity="1.0"   label="1.0"  opacity="1"/>
-            </ColorMap>
-          </RasterSymbolizer>
-        </Rule>
-      </FeatureTypeStyle>
-    </UserStyle>
-  </NamedLayer>
-</StyledLayerDescriptor>"""
+<StyledLayerDescriptor xmlns="http://www.opengis.net/sld" version="1.0.0" xmlns:ogc="http://www.opengis.net/ogc" xmlns:sld="http://www.opengis.net/sld" xmlns:gml="http://www.opengis.net/gml">
+  <UserLayer>
+    <sld:LayerFeatureConstraints>
+      <sld:FeatureTypeConstraint/>
+    </sld:LayerFeatureConstraints>
+    <sld:UserStyle>
+      <sld:Name>ndvi_LC08_L1TP_174041_20260214_20260214_02_RT_B4</sld:Name>
+      <sld:FeatureTypeStyle>
+        <sld:Rule>
+          <sld:RasterSymbolizer>
+            <sld:ChannelSelection>
+              <sld:GrayChannel>
+                <sld:SourceChannelName>1</sld:SourceChannelName>
+              </sld:GrayChannel>
+            </sld:ChannelSelection>
+            <sld:ColorMap type="ramp">
+              <sld:ColorMapEntry color="#00204d" quantity="-0.32765719999999998" label="-0.33"/>
+              <sld:ColorMapEntry color="#31446b" quantity="-0.18191971999999998" label="-0.18"/>
+              <sld:ColorMapEntry color="#666970" quantity="-0.036182239999999977" label="-0.04"/>
+              <sld:ColorMapEntry color="#969078" quantity="0.10955524000000005" label="0.11"/>
+              <sld:ColorMapEntry color="#12e54a" quantity="0.25529272000000003" label="0.26"/>
+              <sld:ColorMapEntry color="#088738" quantity="0.4010302" label="0.40"/>
+            </sld:ColorMap>
+          </sld:RasterSymbolizer>
+        </sld:Rule>
+      </sld:FeatureTypeStyle>
+    </sld:UserStyle>
+  </UserLayer>
+</StyledLayerDescriptor>
+
+"""
 
     def create(self):
         if not os.path.exists(self.red_file) or not os.path.exists(self.nir_file):
@@ -130,35 +129,33 @@ class NDWICreator(NDVICreator):
 
     def get_sld(self):
         return """<?xml version="1.0" encoding="UTF-8"?>
-<StyledLayerDescriptor version="1.0.0"
-  xmlns="http://www.opengis.net/sld"
-  xmlns:ogc="http://www.opengis.net/ogc"
-  xmlns:xlink="http://www.w3.org/1999/xlink"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://www.opengis.net/sld http://schemas.opengis.net/sld/1.0.0/StyledLayerDescriptor.xsd">
-  <NamedLayer>
-    <Name>NDWI</Name>
-    <UserStyle>
-      <Title>NDWI Style</Title>
-      <FeatureTypeStyle>
-        <Rule>
-          <RasterSymbolizer>
-            <ChannelSelection>
-              <GrayChannel><SourceChannelName>1</SourceChannelName></GrayChannel>
-            </ChannelSelection>
-            <ColorMap type="ramp">
-              <ColorMapEntry color="#8c510a" quantity="-1.0"  label="-1.0 (dry)"   opacity="1"/>
-              <ColorMapEntry color="#d8b365" quantity="-0.3"  label="-0.3"         opacity="1"/>
-              <ColorMapEntry color="#f6e8c3" quantity="0.0"   label="0.0"          opacity="1"/>
-              <ColorMapEntry color="#c7eae5" quantity="0.1"   label="0.1"          opacity="1"/>
-              <ColorMapEntry color="#5ab4ac" quantity="0.3"   label="0.3"          opacity="1"/>
-              <ColorMapEntry color="#01665e" quantity="1.0"   label="1.0 (water)"  opacity="1"/>
-            </ColorMap>
-          </RasterSymbolizer>
-        </Rule>
-      </FeatureTypeStyle>
-    </UserStyle>
-  </NamedLayer>
+<StyledLayerDescriptor xmlns="http://www.opengis.net/sld" version="1.0.0" xmlns:ogc="http://www.opengis.net/ogc" xmlns:sld="http://www.opengis.net/sld" xmlns:gml="http://www.opengis.net/gml">
+  <UserLayer>
+    <sld:LayerFeatureConstraints>
+      <sld:FeatureTypeConstraint/>
+    </sld:LayerFeatureConstraints>
+    <sld:UserStyle>
+      <sld:Name>ndbi_LC08_L1TP_174041_20260214_20260214_02_RT_B6</sld:Name>
+      <sld:FeatureTypeStyle>
+        <sld:Rule>
+          <sld:RasterSymbolizer>
+            <sld:ChannelSelection>
+              <sld:GrayChannel>
+                <sld:SourceChannelName>1</sld:SourceChannelName>
+              </sld:GrayChannel>
+            </sld:ChannelSelection>
+            <sld:ColorMap type="ramp">
+              <sld:ColorMapEntry color="#088738" quantity="-0.30517566204071001" label="-0.3052"/>
+              <sld:ColorMapEntry color="#fcbea5" quantity="-0.16426972299814199" label="-0.1643"/>
+              <sld:ColorMapEntry color="#fb7050" quantity="-0.023363783955574001" label="-0.0234"/>
+              <sld:ColorMapEntry color="#d32020" quantity="0.117542155086994" label="0.1175"/>
+              <sld:ColorMapEntry color="#67000d" quantity="0.25844809412956199" label="0.2584"/>
+            </sld:ColorMap>
+          </sld:RasterSymbolizer>
+        </sld:Rule>
+      </sld:FeatureTypeStyle>
+    </sld:UserStyle>
+  </UserLayer>
 </StyledLayerDescriptor>"""
 
     def calculate_ndwi(self, green, nir):
@@ -191,35 +188,37 @@ class NDBICreator(NDVICreator):
 
     def get_sld(self):
         return """<?xml version="1.0" encoding="UTF-8"?>
-<StyledLayerDescriptor version="1.0.0"
-  xmlns="http://www.opengis.net/sld"
-  xmlns:ogc="http://www.opengis.net/ogc"
-  xmlns:xlink="http://www.w3.org/1999/xlink"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://www.opengis.net/sld http://schemas.opengis.net/sld/1.0.0/StyledLayerDescriptor.xsd">
-  <NamedLayer>
-    <Name>NDBI</Name>
-    <UserStyle>
-      <Title>NDBI Style</Title>
-      <FeatureTypeStyle>
-        <Rule>
-          <RasterSymbolizer>
-            <ChannelSelection>
-              <GrayChannel><SourceChannelName>1</SourceChannelName></GrayChannel>
-            </ChannelSelection>
-            <ColorMap type="ramp">
-              <ColorMapEntry color="#1a9641" quantity="-1.0"  label="-1.0 (veg/water)" opacity="1"/>
-              <ColorMapEntry color="#a6d96a" quantity="-0.3"  label="-0.3"             opacity="1"/>
-              <ColorMapEntry color="#ffffbf" quantity="0.0"   label="0.0"              opacity="1"/>
-              <ColorMapEntry color="#fdae61" quantity="0.3"   label="0.3"              opacity="1"/>
-              <ColorMapEntry color="#d7191c" quantity="1.0"   label="1.0 (built-up)"  opacity="1"/>
-            </ColorMap>
-          </RasterSymbolizer>
-        </Rule>
-      </FeatureTypeStyle>
-    </UserStyle>
-  </NamedLayer>
-</StyledLayerDescriptor>"""
+<StyledLayerDescriptor xmlns="http://www.opengis.net/sld" version="1.0.0" xmlns:ogc="http://www.opengis.net/ogc" xmlns:sld="http://www.opengis.net/sld" xmlns:gml="http://www.opengis.net/gml">
+  <UserLayer>
+    <sld:LayerFeatureConstraints>
+      <sld:FeatureTypeConstraint/>
+    </sld:LayerFeatureConstraints>
+    <sld:UserStyle>
+      <sld:Name>ndbi_LC08_L1TP_174041_20260214_20260214_02_RT_B6</sld:Name>
+      <sld:FeatureTypeStyle>
+        <sld:Rule>
+          <sld:RasterSymbolizer>
+            <sld:ChannelSelection>
+              <sld:GrayChannel>
+                <sld:SourceChannelName>1</sld:SourceChannelName>
+              </sld:GrayChannel>
+            </sld:ChannelSelection>
+            <sld:ColorMap type="ramp">
+              <sld:ColorMapEntry color="#d7191c" quantity="-0.30517566204071001" label="-0.3052"/>
+              <sld:ColorMapEntry color="#fff2b0" quantity="-0.046493891812774579" label="-0.0465"/>
+              <sld:ColorMapEntry color="#fff4b2" quantity="-0.042667757136794382" label="-0.0427"/>
+              <sld:ColorMapEntry color="#fff7b6" quantity="-0.037354132499498927" label="-0.0374"/>
+              <sld:ColorMapEntry color="#e5f4b7" quantity="0.020425104383774817" label="0.0204"/>
+              <sld:ColorMapEntry color="#2b83ba" quantity="0.25844786847877699" label="0.2584"/>
+            </sld:ColorMap>
+          </sld:RasterSymbolizer>
+        </sld:Rule>
+      </sld:FeatureTypeStyle>
+    </sld:UserStyle>
+  </UserLayer>
+</StyledLayerDescriptor>
+
+"""
 
     def calculate_ndbi(self, swir, nir):
         denom = (swir + nir)
@@ -251,35 +250,37 @@ class MNDWICreator(NDVICreator):
 
     def get_sld(self):
         return """<?xml version="1.0" encoding="UTF-8"?>
-<StyledLayerDescriptor version="1.0.0"
-  xmlns="http://www.opengis.net/sld"
-  xmlns:ogc="http://www.opengis.net/ogc"
-  xmlns:xlink="http://www.w3.org/1999/xlink"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://www.opengis.net/sld http://schemas.opengis.net/sld/1.0.0/StyledLayerDescriptor.xsd">
-  <NamedLayer>
-    <Name>MNDWI</Name>
-    <UserStyle>
-      <Title>MNDWI Style</Title>
-      <FeatureTypeStyle>
-        <Rule>
-          <RasterSymbolizer>
-            <ChannelSelection>
-              <GrayChannel><SourceChannelName>1</SourceChannelName></GrayChannel>
-            </ChannelSelection>
-            <ColorMap type="ramp">
-              <ColorMapEntry color="#7f3b08" quantity="-1.0"  label="-1.0 (land/bare)"  opacity="1"/>
-              <ColorMapEntry color="#e08214" quantity="-0.3"  label="-0.3"              opacity="1"/>
-              <ColorMapEntry color="#fdb863" quantity="0.0"   label="0.0"               opacity="1"/>
-              <ColorMapEntry color="#b2e2e2" quantity="0.1"   label="0.1"               opacity="1"/>
-              <ColorMapEntry color="#238b45" quantity="0.3"   label="0.3"               opacity="1"/>
-              <ColorMapEntry color="#003c30" quantity="1.0"   label="1.0 (open water)"  opacity="1"/>
-            </ColorMap>
-          </RasterSymbolizer>
-        </Rule>
-      </FeatureTypeStyle>
-    </UserStyle>
-  </NamedLayer>
+<StyledLayerDescriptor xmlns="http://www.opengis.net/sld" version="1.0.0" xmlns:ogc="http://www.opengis.net/ogc" xmlns:sld="http://www.opengis.net/sld" xmlns:gml="http://www.opengis.net/gml">
+  <UserLayer>
+    <sld:LayerFeatureConstraints>
+      <sld:FeatureTypeConstraint/>
+    </sld:LayerFeatureConstraints>
+    <sld:UserStyle>
+      <sld:Name>mndwi_LC08_L1TP_174041_20260214_20260214_02_RT_B3</sld:Name>
+      <sld:FeatureTypeStyle>
+        <sld:Rule>
+          <sld:RasterSymbolizer>
+            <sld:ChannelSelection>
+              <sld:GrayChannel>
+                <sld:SourceChannelName>1</sld:SourceChannelName>
+              </sld:GrayChannel>
+            </sld:ChannelSelection>
+            <sld:ColorMap type="ramp">
+              <sld:ColorMapEntry color="#f7fbff" quantity="-0.4024469" label="-٠.٤٠٢٤"/>
+              <sld:ColorMapEntry color="#deebf7" quantity="-0.29262845100000001" label="-٠.٢٩٢٦"/>
+              <sld:ColorMapEntry color="#c6dbef" quantity="-0.182810002" label="-٠.١٨٢٨"/>
+              <sld:ColorMapEntry color="#9ecae1" quantity="-0.072991553000000001" label="-٠.٠٧٣٠"/>
+              <sld:ColorMapEntry color="#6baed6" quantity="0.036826895999999998" label="٠.٠٣٦٨"/>
+              <sld:ColorMapEntry color="#4292c6" quantity="0.14664534500000001" label="٠.١٤٦٦"/>
+              <sld:ColorMapEntry color="#2171b5" quantity="0.25646379400000002" label="٠.٢٥٦٥"/>
+              <sld:ColorMapEntry color="#08519c" quantity="0.35783467000000002" label="٠.٣٥٧٨"/>
+              <sld:ColorMapEntry color="#08306b" quantity="0.44231039999999999" label="٠.٤٤٢٣"/>
+            </sld:ColorMap>
+          </sld:RasterSymbolizer>
+        </sld:Rule>
+      </sld:FeatureTypeStyle>
+    </sld:UserStyle>
+  </UserLayer>
 </StyledLayerDescriptor>"""
 
     def calculate_mndwi(self, green, swir):
